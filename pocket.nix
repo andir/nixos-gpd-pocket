@@ -2,10 +2,14 @@
 {
   imports = [
     ./hardware.nix
-    #    ./wifi.nix
+    #./wifi.nix
     ./kernel.nix
+    ./firmware
   ];
-
+  
+  environment.systemPackages = with pkgs; [
+    vim
+  ];
   nixpkgs.config.allowUnfree = true; # for firmware
 
   # neet 4.14+ for proper hardware support (and modesetting)
@@ -16,14 +20,15 @@
     "g_serial" # be a serial device via OTG
   ];
   networking.networkmanager.enable = true;
-
-  xserver.desktopManager.gnome3.enable = true;
+  services.xserver.enable = true;
+  services.xserver.displayManager.gdm.enable = true;
+  services.xserver.desktopManager.gnome3.enable = true;
 
   services.openssh.enable = true;
   systemd.services.sshd.wantedBy = lib.mkForce [ "multi-user.target" ];
 
 
-  users.extrausers = {
+  users.users = {
     andi = {
       isNormalUser = true;
       name = "andi";
