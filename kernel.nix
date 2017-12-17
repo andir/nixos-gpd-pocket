@@ -35,16 +35,16 @@ let
         sha256 = sha256.${version};
       });
             extraConfig = ''
-             CONFIG_PWM=y
-             CONFIG_PWM_SYSFS y
-             CONFIG_PWM_CRC y
-             CONFIG_PWM_LPSS m
-             CONFIG_PWM_LPSS_PCI m
-             CONFIG_PWM_LPSS_PLATFORM m
+             PWM y
+             PWM_SYSFS y
+             #PWM_CRC y
+             PWM_LPSS m
+             PWM_LPSS_PCI m
+             PWM_LPSS_PLATFORM m
              GPD_POCKET_FAN y
              INTEL_CHT_INT33FE m
              MUX_PI3USB30532 m
-             MUX_INTEL_CHT_USB_MUX y
+             MUX_INTEL_CHT_USB_MUX m 
             '';
   });
 
