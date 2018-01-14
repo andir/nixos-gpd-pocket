@@ -5,8 +5,11 @@
     #./wifi.nix
     ./kernel.nix
     ./firmware
+    ./xserver.nix
+    ./bluetooth.nix
+    ./touch.nix
   ];
-  
+
   environment.systemPackages = with pkgs; [
     vim
   ];
@@ -21,12 +24,20 @@
   ];
   networking.networkmanager.enable = true;
   services.xserver.enable = true;
+  #services.xserver.displayManager.sddm.enable = true;
+  #services.xserver.desktopManager.plasma5.enable = true;
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome3.enable = true;
+  services.tlp.enable = true;
+  i18n = {
+   consoleFont = "Lat2-Terminus16";
+   consoleKeyMap = "us";
+   defaultLocale = "en_US.UTF-8";
+  };
+  time.timeZone = "Europe/Berlin";
 
   services.openssh.enable = true;
   systemd.services.sshd.wantedBy = lib.mkForce [ "multi-user.target" ];
-
 
   users.users = {
     andi = {
